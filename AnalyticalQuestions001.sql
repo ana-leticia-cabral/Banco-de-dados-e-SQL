@@ -199,3 +199,67 @@ GROUP BY
     month
 ORDER BY
     client_id;
+
+
+
+
+
+
+/* MYSQL - Número de remessas por mês - Amazon
+
+Escreva uma consulta que calculará o número de remessas por mês.
+
+A chave exclusiva para uma remessa é uma combinação de shipment_id e sub_id.
+
+Produza o year_month no formato YYYY-MM e o número de remessas naquele mês.
+
+*/
+
+SELECT
+    DATE_FORMAT(shipment_date, '%Y-%m') AS yearmonth,
+    COUNT(DISTINCT shipment_id, sub_id) AS number_shipments
+FROM
+    amazon_shipment
+GROUP BY
+    yearmonth
+ORDER BY
+    yearmonth
+
+
+
+
+
+/* MYSQL - Altos rendimentos em departamentos de apoio - Uber/Spotify/Amazon
+
+A equipe de RH está revisando pacotes de remuneração para funcionários em funções de suporte.
+
+Eles querem identificar pessoas com altos rendimentos nos departamentos de RH e Administração para um estudo de avaliação comparativa salarial.
+
+Encontre todos os funcionários que ganham mais de US$ 80.000 e trabalham no departamento de RH ou administrativo.
+
+Retorne first_name, last_name, department, salary.
+
+*/
+
+SELECT COUNT(salary)
+FROM techcorp_workforce
+WHERE salary > 80000; # 26
+
+SELECT COUNT(department)
+FROM techcorp_workforce
+WHERE department = 'HR'; # 10
+
+SELECT COUNT(department)
+FROM techcorp_workforce
+WHERE department = 'Admin'; # 8
+
+SELECT 
+    first_name,
+    last_name,
+    department,
+    salary
+FROM 
+    techcorp_workforce
+WHERE
+    (department = 'HR' OR department = 'Admin')
+    AND salary > 80000;
