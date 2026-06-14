@@ -175,3 +175,27 @@ FROM
     cargos_oficiais
 WHERE
     salary IN (SELECT MAX(salary) FROM cargos_oficiais);
+
+
+
+
+/* MYSQL - Usuários exclusivos por cliente por mês - Microsoft/Apple/Dell
+
+Escreva uma consulta que retorne o número de usuários únicos por cliente para cada mês. 
+
+Suponha que todos os eventos ocorram no mesmo ano, então o mês precisa estar na saída como um número de 1 a 12.
+
+*/
+
+SELECT
+    client_id,
+    MONTH(time_id) AS month,
+    COUNT(DISTINCT user_id) AS users_num
+    
+FROM
+    fact_events
+GROUP BY
+    client_id,
+    month
+ORDER BY
+    client_id;
